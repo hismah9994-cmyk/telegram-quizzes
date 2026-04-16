@@ -1,0 +1,20 @@
+# Local build artefacts (we only need answers.json from here)
+_preview/
+_build/crops/
+_build/modules/
+
+# The original answer PDF is not needed at runtime
+الاجابات .pdf
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+.DS_Store

@@ -1,0 +1,37 @@
+name: Daily Quiz
+
+on:
+  # 17:30 Asia/Riyadh (GMT+3)  =  14:30 UTC
+  schedule:
+    - cron: "30 14 * * *"
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+
+concurrency:
+  group: daily-quiz
+  cancel-in-progress: false
+
+jobs:
+  post-quiz:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Post today's quiz to Telegram
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:  ${{ secrets.TELEGRAM_CHAT_ID  }}
+          START_DAY:  "41"
+          START_DATE: "2026-04-17"
+        run: python quiz_bot.py
