@@ -105,7 +105,8 @@ def send_quiz_poll(question, correct_index):
         options=json.dumps(["A", "B", "C", "D"], ensure_ascii=False),
         type="quiz",
         correct_option_id=correct_index,
-        is_anonymous="false",
+        # Anonymous: no one (not even admins) can see who voted for what.
+        is_anonymous="true",
     )
 
 
